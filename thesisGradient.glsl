@@ -11,7 +11,7 @@ uniform float u_time;
 // 0: Addition, 1: Screen, 2: Overlay, 3: Soft Light, 4: Lighten-Only
 #define BLEND_MODE 0
 #define SPEED 2.
-#define INTENSITY.075
+#define INTENSITY.75
 // What gray level noise should tend to.
 #define MEAN 0.
 // Controls the contrast/variance of noise.
@@ -77,13 +77,17 @@ vec3 overlay(vec3 a,vec3 b,float w){
         // float t=u_time*.04;
         float pal_time=u_time*.04;
         
-        float color=0.;
-        color+=sin(coord.x*50.+cos(u_time/20.+coord.y*5.*sin(coord.x*5.+u_time/20.))*2.);
-        color+=cos(coord.x*20.+sin((u_time/100.)+coord.y*5.*cos(coord.x*5.+u_time/20.))*2.);
+        float color=.3;
+        color+=sin(coord.x*50.+cos(u_time/20.+coord.y*20.*sin(coord.x*5.+u_time/20.))*2.);
+        color+=cos(coord.x*20.+sin((u_time/100.)+coord.y*5.*cos(coord.x*5.+u_time/20.))*.4);
         color+=sin(coord.x*30.+cos((u_time/40.)+coord.y/5.+sin(coord.x*5.+u_time/20.))*2.);
-        color+=cos(coord.x*10.+sin(u_time-coord.y*5.+cos(coord.x*5.+u_time/2.))*2.);
+        color+=cos(coord.x*10.+sin(u_time-coord.y*5.+cos(coord.x*5.+u_time/2.))*1.);
         
-        // color += noise(vec2(sin(u_time*3.)));
-        // palette(pal_time,vec3(.5,.5,.5),vec3(.5,.5,.5),vec3(1.,1.,1.),vec3(.3,.20,.20))
-        gl_FragColor=((vec4(vec3(color+coord.y,color+coord.x,coord.x+coord.y),1.))*noiseCol);
+        color-=1.2;
+        
+        // gl_FragColor=((vec4(vec3(color+coord.y,color+coord.x,coord.x+coord.y),1.))*noiseCol);
+        
+        // alternate colors
+        gl_FragColor=((vec4(vec3(color+coord.x+(abs(sin(u_time*.3))/2.),color+coord.y,coord.x+color+coord.y),1.))*noiseCol);
+        
     }
