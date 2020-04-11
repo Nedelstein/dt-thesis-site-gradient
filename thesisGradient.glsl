@@ -78,16 +78,16 @@ vec3 overlay(vec3 a,vec3 b,float w){
         float pal_time=u_time*.04;
         
         float color=.3;
-        color+=sin(coord.x*50.+cos(u_time/20.+coord.y*20.*sin(coord.x*5.+u_time/20.))*2.);
+        color+=sin(coord.x*50.+cos(u_time/20.+coord.y*5.*sin(coord.x*5.+u_time/20.))*2.6);
         color+=cos(coord.x*20.+sin((u_time/100.)+coord.y*5.*cos(coord.x*5.+u_time/20.))*.4);
         color+=sin(coord.x*30.+cos((u_time/40.)+coord.y/5.+sin(coord.x*5.+u_time/20.))*2.);
-        color+=cos(coord.x*10.+sin(u_time-coord.y*5.+cos(coord.x*5.+u_time/2.))*1.);
+        color+=cos(coord.x*10.5+sin(u_time-coord.y*5.+cos(coord.x*5.+u_time/2.))*2.);
         
         color-=1.2;
         
         // gl_FragColor=((vec4(vec3(color+coord.y,color+coord.x,coord.x+coord.y),1.))*noiseCol);
         
         // alternate colors
-        gl_FragColor=((vec4(vec3(color+coord.x+(abs(sin(u_time*.3))/2.),color+coord.y,coord.x+color+coord.y),1.))*noiseCol);
+        gl_FragColor=((vec4(vec3(color+coord.x+(abs(sin(u_time*.3))/2.)-1.2,color+coord.y-2.2,coord.x+color+coord.y-.5),1.))*noiseCol);
         
     }
