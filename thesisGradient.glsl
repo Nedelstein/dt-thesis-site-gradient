@@ -88,6 +88,6 @@ vec3 overlay(vec3 a,vec3 b,float w){
         // gl_FragColor=((vec4(vec3(color+coord.y,color+coord.x,coord.x+coord.y),1.))*noiseCol);
         
         // alternate colors
-        gl_FragColor=((vec4(vec3(color+coord.x+(abs(sin(u_time*.3))/2.)-1.2,color+coord.y-2.2,coord.x+color+coord.y-.5),1.))*noiseCol);
+        gl_FragColor=((vec4(vec3(color+coord.x+(abs(sin(u_time*.3))/2.)-.2,color+coord.y-4.2,coord.x+color+coord.y-.05),1.))*noiseCol);
         
     }
