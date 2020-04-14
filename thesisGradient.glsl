@@ -31,14 +31,14 @@ void main()
     vec2 E=vec2(.9,.79);
     
     float k1=.7;// size
-    float k2=6.;// shape
+    float k2=3.;// shape
     
     // warp domains
     vec2 uvA=uv*vec2(.69,.8);
     uvA.x+=sin(uv.y*5.+u_time)*.1;
-    vec2 uvB=uv*vec2(.8,1.);
+    vec2 uvB=uv*vec2(.7,.4);
     uvB.x+=sin(uv.y*4.+u_time)*.1;
-    vec2 uvC=uv*vec2(1.,.8);
+    vec2 uvC=uv*vec2(.6,.8);
     uvC.y+=sin(uv.x*4.+u_time)*.1;
     vec2 uvD=uv*vec2(.2,.8);
     uvD.y+=sin(uv.x*4.+u_time)*.1;
@@ -82,7 +82,7 @@ void main()
         random1f(uv),
         random1f(uv+1.),
         random1f(uv+2.)
-    )*.1;
+    )*.2;
     
     // complex noise
     
