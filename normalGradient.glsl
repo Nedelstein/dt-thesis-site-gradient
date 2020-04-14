@@ -2,9 +2,11 @@
 precision mediump float;
 #endif
 
-uniform vec2 u_resolution;
 uniform vec2 u_mouse;
 uniform float u_time;
+uniform vec2 u_resolution;
+
+//2D vector field visualization by Morgan McGuire,@morgan3d,http://casual-effects.com
 
 #define SHOW_NOISE 0
 #define SRGB 0
@@ -17,7 +19,6 @@ uniform float u_time;
 // Controls the contrast/variance of noise.
 #define VARIANCE.5
 
-//for noise grain
 vec3 channel_mix(vec3 a,vec3 b,vec3 w){
     return vec3(mix(a.r,b.r,w.r),mix(a.g,b.g,w.g),mix(a.b,b.b,w.b));
 }
@@ -52,17 +53,26 @@ vec3 overlay(vec3 a,vec3 b,float w){
         return mod((mod(x,13.)+1.)*(mod(x,123.)+1.),.01)-.005;
     }
     
-    // cosine based palette, 4 vec3 params from IQ
+    // cosine based palette, 4 vec3 params
     vec3 palette(in float t,in vec3 a,in vec3 b,in vec3 c,in vec3 d)
     {
         return a+b*cos(6.28318*(c*t+d));
     }
     
+    /////////////////////////////////////////////////////////////////////
+    
+    // The vector field; use your own function or texture
+    vec2 field(vec2 pos){
+        return vec2(cos(pos.x*.01+pos.y*.01)+cos(pos.y*.005+u_time),2.*cos(pos.y*.01+u_time*.3))*.5;
+        
+    }
+    
     void main(){
         vec2 coord=gl_FragCoord.xy/u_resolution.xy;
+        
         vec2 ps=vec2(1.)/u_resolution.xy;
         vec2 uv=coord*ps;
-        vec4 noiseCol=pow(vec4(.1,.1,.1,1.),vec4(2.));
+        vec4 noiseCol=pow(vec4(.1,.1,.1,1.),vec4(2.2));
         
         float t=u_time*float(SPEED);
         float seed=dot(uv,vec2(12.9898,78.233));
@@ -73,7 +83,6 @@ vec3 overlay(vec3 a,vec3 b,float w){
         
         noiseCol.rgb+=grain*w;
         
-        // normalized rgba colors from gradient
         vec4 col1=vec4(1.,.51,.59,1.);
         vec4 col2=vec4(.03,.01,0.,1.);
         vec4 col3=vec4(1.,.31,0.,1.);
@@ -81,28 +90,6 @@ vec3 overlay(vec3 a,vec3 b,float w){
         vec4 col5=vec4(1.,.44,.45,1.);
         vec4 col6=vec4(.17,.64,.58,1.);
         
-        // IQ color gradient function
-        vec3 colGrad=palette(coord.x,vec3(.5,.5,.5),vec3(.5,.5,.5),vec3(2.,1.,0.),vec3(0.,1.,.8667));
-        
-        noiseCol=pow(noiseCol,vec4(.2/3.2));
-        
-        // float t=u_time*.04;
-        float pal_time=u_time*.04;
-        
-        float color=2.;
-        color+=sin(coord.x*50.+cos(u_time/20.+coord.y*5.*sin(coord.x*5.+u_time/20.))*2.6);
-        color+=cos(coord.x*20.+sin((u_time/10.)+coord.y*5.*cos(coord.x*5.+u_time/20.))*.4);
-        color+=sin(coord.x*30.+cos((u_time/40.)+coord.y/5.+sin(coord.x*5.+u_time/20.))*2.);
-        color+=cos(coord.x*10.5+sin(u_time-coord.y*5.+cos(coord.x*5.+u_time/2.))*2.);
-        
-        // color+=tan(coord.y*10.5+sin(u_time*coord.y/5.+cos(coord.x*5.+u_time/2.))*2.);
-        // color+=cos(coord.y/10.5-sin(u_time *+cos(coord.x*5.+u_time/2.))*2.);
-        
-        color-=1.2;
-        gl_FragColor=vec4(colGrad,1.);
-        
-        gl_FragColor*=((vec4(vec3(color+coord.y,color+coord.x,coord.x+coord.y),1.))*noiseCol);
-        
-        // alternate colors
-        // gl_FragColor*=((vec4(vec3(color-coord.x-(abs(sin(u_time*.3))*.2)*.52,coord.x-.42,coord.x+color+coord.y-.5),1.))*noiseCol);
+        noiseCol=pow(noiseCol,vec4(.6/3.2));
+        gl_FragColor=vec4(field(gl_FragCoord.xy)*.5+.5,1.2,1.)*noiseCol;
     }
