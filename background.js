@@ -29,9 +29,10 @@ precision highp float;
 uniform float u_time;
 varying vec4 vUV;
 varying vec4 vColor;
-uniform float randShape[13];
-uniform float randSize[13]; 
-uniform float randStart[23]; 
+uniform float randShape[40];
+uniform float randSize[40]; 
+uniform float randStart[40]; 
+uniform float randFreq[40]; 
 //animation variables
  float offsetMultiplier =-4.; 
  float speed = .06; 
@@ -54,51 +55,93 @@ void main(void){
     vec2 B = vec2(randStart[2], randStart[3]);
     vec2 C = vec2(randStart[4], randStart[5]);
     vec2 D = vec2(randStart[6], randStart[7]);
-    vec2 E = vec2(randStart[8], 1.);
-    vec2 F = vec2(randStart[9], 1.);
-    vec2 G = vec2(randStart[11], randStart[12]);
+    vec2 E = vec2(randStart[8], randStart[39]);
+    vec2 F = vec2(randStart[9], .5);
+    vec2 G = vec2(randStart[11], 1.);
     vec2 H = vec2(randStart[13], randStart[14]);
-    vec2 I = vec2(-1. , randStart[16]);
+    vec2 I = vec2(-1.2 , randStart[16]);
     vec2 J = vec2(randStart[17], randStart[18]);
     vec2 K = vec2(randStart[19], randStart[20]);
     vec2 L = vec2(1., randStart[22]);
+        //repeating colors
+        vec2 M = vec2(randStart[23], randStart[24]);
+        vec2 N = vec2(randStart[25], randStart[26]);
+        vec2 O = vec2(1., randStart[27]);
+        vec2 P = vec2(-1., randStart[29]);
+        vec2 Q = vec2(randStart[30], randStart[31]);
+        vec2 R = vec2(randStart[32], randStart[33]);
     
     // warp domains
 vec2 uvA = uv * vec2(randStart[22], randStart[22]);
-uvA.x += sin(uv.y * offsetMultiplier + u_time) * speed;
-uvA.y += sin(uv.x * offsetMultiplier + u_time) * speed;
+// uvA.x += sin(uv.y * randFreq[0] + u_time) * speed;
+uvA.y += sin(uv.x * randFreq[1] + u_time) * speed;
+
 vec2 uvB = uv * vec2(randStart[20], randStart[21]);
-uvB.x += sin(uv.y * offsetMultiplier + u_time) * speed;
-uvB.y += sin(uv.x * offsetMultiplier + u_time) * speed;
+uvB.x += sin(uv.y * randFreq[2] + u_time) * speed;
+// uvB.y += sin(uv.x * randFreq[3] + u_time) * speed;
+
 vec2 uvC = uv * vec2(randStart[18], randStart[19]);
-uvC.y += sin(uv.x * offsetMultiplier + u_time) * speed;
+uvC.y += sin(uv.x * randFreq[4] + u_time) * speed;
+
 vec2 uvD = uv * vec2(randStart[16], randStart[17]);
-uvD.y += sin(uv.x * offsetMultiplier + u_time) * speed;
-uvD.x += sin(uv.y * offsetMultiplier + u_time) * speed;
+// uvD.y += sin(uv.x * randFreq[5] + u_time) * speed;
+uvD.x += sin(uv.y * randFreq[6] + u_time) * speed;
+
 vec2 uvE = uv * vec2(randStart[14], randStart[15]);
-uvE.x += sin(uv.y * offsetMultiplier + u_time) * speed;
-uvE.y += sin(uv.x * offsetMultiplier + u_time) * speed;
+// uvE.x += sin(uv.y * randFreq[7] + u_time) * speed;
+uvE.y += sin(uv.x * randFreq[8] + u_time) * speed;
+
 vec2 uvF = uv * vec2(randStart[12], randStart[13]);
-uvF.x += sin(uv.y * offsetMultiplier + u_time) * speed;
-uvF.y += sin(uv.x * offsetMultiplier + u_time) * speed;
-vec2 uvG = uv * vec2(randStart[10], randStart[11]);
-uvG.y += sin(uv.x * offsetMultiplier + u_time) * speed;
+uvF.x += sin(uv.y * randFreq[9] + u_time) * speed;
+// uvF.y += sin(uv.x * randFreq[10] + u_time) * speed;
+
+vec2 uvG = uv * vec2(.5, .3);
+uvG.y += sin(uv.x * randFreq[11] + u_time) * speed;
+
 vec2 uvH = uv * vec2(randStart[8], randStart[9]);
-uvH.x += sin(uv.y * offsetMultiplier + u_time) * speed;
-uvH.y += sin(uv.x * offsetMultiplier + u_time) * speed;
+uvH.x += sin(uv.y * randFreq[12] + u_time) * speed;
+// uvH.y += sin(uv.x * randFreq[13] + u_time) * speed;
+
 vec2 uvI = uv * vec2(randStart[6], randStart[7]);
-uvI.x += sin(uv.y * offsetMultiplier + u_time) * speed;
-uvI.y += sin(uv.x * offsetMultiplier + u_time) * speed;
+uvI.x += sin(uv.y * randFreq[14] + u_time) * speed;
+// uvI.y += sin(uv.x * randFreq[15] + u_time) * speed;
+
 vec2 uvJ = uv * vec2(randStart[4], randStart[5]);
-uvJ.x += sin(uv.y * offsetMultiplier + u_time) * speed;
-uvJ.y += sin(uv.x * offsetMultiplier + u_time) * speed;
+uvJ.x += sin(uv.y * randFreq[16] + u_time) * speed;
+// uvJ.y += sin(uv.x * randFreq[17] + u_time) * speed;
+
 vec2 uvK = uv * vec2(randStart[2], randStart[3]);
-uvK.x += sin(uv.y * offsetMultiplier + u_time) * speed;
-uvK.y += sin(uv.x * offsetMultiplier + u_time) * speed;
+// uvK.x += sin(uv.y * randFreq[18] + u_time) * speed;
+uvK.y += sin(uv.x * randFreq[19] + u_time) * speed;
+
 vec2 uvL = uv * vec2(randStart[0], randStart[1]);
-uvL.x += sin(uv.y * offsetMultiplier + u_time) * speed;
-uvL.y += sin(uv.x * offsetMultiplier + u_time) * speed;
-    
+uvL.x += sin(uv.y * randFreq[0] + u_time) * speed;
+// uvL.y += sin(uv.x * randFreq[1] + u_time) * speed;
+
+  vec2 uvM = uv * vec2(randStart[24], randStart[25]);
+  // uvM.x += sin(uv.y * randFreq[24] + u_time) * speed;
+  uvM.y += sin(uv.x * randFreq[25] + u_time) * speed;
+
+  vec2 uvN = uv * vec2(randStart[26], randStart[27]);
+  uvN.x += sin(uv.y * randFreq[26] + u_time) * speed;
+  // uvN.y += sin(uv.x * randFreq[27] + u_time) * speed;
+
+  vec2 uvO = uv * vec2(randStart[28], randStart[29]);
+  // uvO.x += sin(uv.y * randFreq[28] + u_time) * speed;
+  uvO.y += sin(uv.x * randFreq[29] + u_time) * speed;
+
+  vec2 uvP = uv * vec2(randStart[30], randStart[31]);
+  // uvP.x += sin(uv.y * randFreq[30] + u_time) * speed;
+  uvP.y += sin(uv.x * randFreq[31] + u_time) * speed;
+
+  vec2 uvQ = uv * vec2(randStart[32], randStart[33]);
+  // uvQ.x += sin(uv.y * randFreq[32] + u_time) * speed;
+  uvQ.y += sin(uv.x * randFreq[33] + u_time) * speed;
+
+  vec2 uvR = uv * vec2(randStart[34], randStart[35]);
+  uvR.x += sin(uv.y * randFreq[34] + u_time) * speed;
+  // uvR.y += sin(uv.x * randFreq[35] + u_time) * speed;
+
     // create shaped gradient
     float dA = max(0., 1. - pow(distance(uvA, A) / randSize[0], randShape[0]));
     float dB = max(0., 1. - pow(distance(uvB, B) / randSize[1], randShape[1]));
@@ -106,12 +149,18 @@ uvL.y += sin(uv.x * offsetMultiplier + u_time) * speed;
     float dD = max(0., 1. - pow(distance(uvD, D) / randSize[3], randShape[3]));
     float dE = max(0., 1. - pow(distance(uvE, E) / randSize[4], randShape[4]));
     float dF = max(0., 1. - pow(distance(uvF, F) / randSize[5], randShape[5]));
-    float dG = max(0., 1. - pow(distance(uvG, G) / randSize[6], randShape[6]));
+    float dG = max(0., 1. - pow(distance(uvG, G) / 1., randShape[6]));
     float dH = max(0., 1. - pow(distance(uvH, H) / randSize[7], randShape[7]));
     float dI = max(0., 1. - pow(distance(uvI, I) / randSize[8], randShape[8]));
     float dJ = max(0., 1. - pow(distance(uvJ, J) / randSize[9], randShape[9]));
     float dK = max(0., 1. - pow(distance(uvK, K) / randSize[10], randShape[10]));
     float dL = max(0., 1. - pow(distance(uvL, L) / randSize[11], randShape[11]));
+       float dM = max(0., 1. - pow(distance(uvM, M) / randSize[12], randShape[12]));
+       float dN = max(0., 1. - pow(distance(uvN, N) / randSize[13], randShape[13]));
+       float dO = max(0., 1. - pow(distance(uvO, O) / randSize[14], randShape[14]));
+       float dP = max(0., 1. - pow(distance(uvP, P) / randSize[15], randShape[15]));
+       float dQ = max(0., 1. - pow(distance(uvQ, Q) / randSize[16], randShape[16]));
+       float dR = max(0., 1. - pow(distance(uvR, R) / randSize[17], randShape[17]));
     
     // smooth in, out
     dA=smoothstep(0.,1.,dA);
@@ -126,6 +175,11 @@ uvL.y += sin(uv.x * offsetMultiplier + u_time) * speed;
     dJ = smoothstep(0., 1., dJ);
     dK = smoothstep(0., 1., dK);
     dL = smoothstep(0., 1., dL);
+        dN = smoothstep(0., 1., dN);
+        dO = smoothstep(0., 1., dO);
+        dP = smoothstep(0., 1., dP);
+        dQ = smoothstep(0., 1., dQ);
+        dR = smoothstep(0., 1., dR);
     
     // define colors
     
@@ -153,12 +207,18 @@ vec3 darkTurquoise = vec3(32., 59., 53.) / 255.;
     color = mix(color, darkTurquoise, dD);
     color = mix(color,orange,dE);
     color = mix(color, purple, dF);
-     color = mix(color, brightPink, dG);
+    //  color = mix(color, blue, dG);
       color = mix(color, vanta, dH);
        color = mix(color, liteTurquoise, dI);
         color = mix(color, mediumBlue, dJ);
          color = mix(color, darkBLue, dK);
           color = mix(color, liteBlue, dL);
+                color = mix(color, green, dM);
+                color = mix(color, mediumBlue, dN);
+                color = mix(color, orange, dO);
+                color = mix(color, darkPink, dP);
+                color = mix(color, darkTurquoise, dQ);
+                color = mix(color, liteTurquoise, dR);
     
     // add noise
     color+=vec3(
@@ -303,38 +363,34 @@ function main() {
   //   resize();
 
   //get random shapes of blobs
-  var randomShapes = new Float32Array(13);
+  var randomShapes = new Float32Array(40);
   console.log("random Shape values");
   for (var i = 0; i < randomShapes.length; i++) {
-    randomShapes[i] = getRand(0.5, 4);
+    randomShapes[i] = getRand(0.5, 3);
     console.log(randomShapes[i]);
   }
   console.log("random Size values");
-  var randomSizes = new Float32Array(13);
+  var randomSizes = new Float32Array(40);
   for (var i = 0; i < randomSizes.length; i++) {
-    randomSizes[i] = getRand(0.6, 0.8);
+    randomSizes[i] = getRand(0.5, 0.8);
     console.log(randomSizes[i]);
   }
-  // var randColIndx = new Float32Array(7);
-  // for (var i = 0; i < randColIndx.length; i++) {
-  //     randColIndx[i] = Math.round(getRand(0, 13));
-  //     console.log(randColIndx[i]);
-  // }
+
   console.log("random start values");
-  var randomStart = new Float32Array(23);
+  var randomStart = new Float32Array(40);
   for (var i = 0; i < randomStart.length; i++) {
-    randomStart[i] = getRand(-1.0, 1.0);
+    randomStart[i] = getRand(-0.8, 1);
     // randomStart[i + 1] = getRand(-1, 1);
     console.log(randomStart[i]);
   }
 
-  // console.log("random frequency");
-  // var randomFreq = new Float32Array(13);
-  // for (var i = 0; i < randomStart.length; i++) {
-  //     randomStart[i] = getRand(-8., 9.);
-  //     // randomStart[i + 1] = getRand(-1, 1);
-  //     console.log(randomStart[i]);
-  // }
+  console.log("random frequency");
+  var randomFreq = new Float32Array(40);
+  for (var i = 0; i < randomFreq.length; i++) {
+    randomFreq[i] = getRand(-4, 4);
+    // randomStart[i + 1] = getRand(-1, 1);
+    console.log(randomFreq[i]);
+  }
 
   function render() {
     // activate our program
@@ -357,6 +413,10 @@ function main() {
     var locationOfStart = gl.getUniformLocation(shader_program, "randStart");
     if (locationOfStart != -1) {
       gl.uniform1fv(locationOfStart, randomStart);
+    }
+    var locationOfFreq = gl.getUniformLocation(shader_program, "randFreq");
+    if (locationOfStart != -1) {
+      gl.uniform1fv(locationOfFreq, randomFreq);
     }
     // draw the geometry
     gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
